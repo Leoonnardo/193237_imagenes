@@ -27,10 +27,10 @@ def descarga_url_img(link):
    #Guardar nne local las imagenes
    urllib.request.urlretrieve(link, url_local.format(nombre_img, formato_img))
 
-def multi_hilos():
-   print('Multitrheding: ')
-   with ThreadPoolExecutor(max_workers = len(listaDireccion)) as executor:
-      executor.map(descarga_url_img, listaDireccion)
+def multi_procesos():
+   print('Multiprocessing: ')
+   with Pool(len(listaDireccion)) as p:
+        p.map(descarga_url_img, listaDireccion)
 
 def normal_estructurado():
    print('Normal estructurado: ')
@@ -47,4 +47,4 @@ def direcciones():
  
 if __name__ == "__main__":
    direcciones()
-   print(f"Descarga multihilos: {timeit.Timer(multi_hilos).timeit(number = 1)}")
+   print(f"Descarga multiprocesos: {timeit.Timer(multi_procesos).timeit(number = 1)}")
